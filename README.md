@@ -28,4 +28,6 @@ systemd-run --user --unit vmon vmon '1920x1080@60*' 1280x720@60
 
 ## Compatibility
 
-GNOME 50. The monitor comes from mutter's `org.gnome.Mutter.ScreenCast.RecordVirtual`, and `vmon` consumes its PipeWire stream as DMA-BUF. `vmon` also drives that stream, which keeps applications that time their commits, such as Vulkan applications presenting in FIFO mode, running at the monitor's refresh rate; a virtual monitor left to mutter's own clock stalls them.
+Tested on GNOME 50. `vmon` creates the monitor through mutter's `org.gnome.Mutter.ScreenCast.RecordVirtual` and reads its PipeWire stream as DMA-BUF.
+
+`vmon` also sets the pace of that stream. Without it, a virtual monitor stalls applications that schedule their frames, such as Vulkan games with V-Sync on. With it, they run at the monitor's refresh rate.
